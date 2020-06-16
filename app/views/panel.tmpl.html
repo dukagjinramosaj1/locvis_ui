@@ -1,0 +1,80 @@
+<div role="dialog" layout="column" layout-align="center center" ng-controller="PanelDialogCtrl" flex>
+   <md-toolbar layout="row" flex>
+      <div class="md-toolbar-tools" layout="row" flex>
+        <h2 flex>{{panelTitle}}</h2>
+        <md-button class="md-icon-button" ng-click="closePanel()">
+          <md-icon class="material-icons">close</md-icon>
+        </md-button>
+      </div>
+       
+    </md-toolbar>
+
+  
+ 
+
+  <div class="stats-panel-content" layout="row" flex>
+
+
+        <md-content layout="row" flex>
+    <md-tabs md-dynamic-height md-border-bottom flex>
+
+      <md-tab ng-if="$root.settings.dataType.taxi" label="Taxi">
+        <md-content>
+
+
+          <md-tabs md-dynamic-height md-border-bottom flex>
+
+            <md-tab ng-if="true" label="Line graph">
+              <md-content class="md-padding">
+          
+              <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+           
+                <md-button class="md-raised md-primary" ng-click="changeDimension('day')">Day</md-button>
+                <md-button class="md-raised md-primary" ng-click="changeDimension('month')">Month</md-button>
+           
+              </section>
+
+              <la-line-diagram datadimension="dataDimension" config="lineDiagramConfig" ng-show="$root.settings.dimensions[0].selected && $root.settings.metrics[0].selected
+              && $root.settings.visuTools.lineGraph"></la-line-diagram>
+              </md-content>
+            
+
+
+            </md-tab>
+
+            <md-tab ng-if="true" label="Chord diagram">
+              <md-content class="md-padding">
+              <la-chord-diagramm config="lineDiagramConfig" ng-if="$root.settings.dimensions[1].selected && $root.settings.metrics[1].selected
+              && $root.settings.visuTools.chord"></la-chord-diagramm>
+              </md-content>
+            </md-tab>
+
+         </md-tabs>
+        
+        </md-content>
+      </md-tab>
+
+      <md-tab ng-if="$root.settings.dataType.bicycle" label="Bicycle">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">No data available</h1>
+          
+        </md-content>
+      </md-tab>
+
+      <md-tab ng-if="$root.settings.dataType.weather" label="Weather">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">No data available</h1>
+        </md-content>
+      </md-tab>
+
+
+    </md-tabs>
+  </md-content>
+</div>
+  
+
+
+  <div layout="row" class="demo-dialog-button">
+    
+  </div>
+</div>

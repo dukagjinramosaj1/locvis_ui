@@ -1,0 +1,184 @@
+<md-progress-linear md-mode="indeterminate" ng-show="loading"></md-progress-linear>
+<div class="container" layout="row"  flex style="position:relative;" ng-show="!loading">
+
+<div layout="row" class="relative" ng-controller="ToolbarCtrl" 
+style="position: absolute; z-index: 59; margin: 8px 0 8px 8px; width: 392px; border-radius: 2px; border-bottom: 1px solid transparent; ">
+
+
+ <div style="float:left;" layout="column" flex>
+ <!--- container -->
+  <md-input-container layout="row" md-theme="input" flex style="background-color: white; margin: 0px; box-shadow:0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02); width: 392px">
+      <md-button ng-click="toggleLeft()" aria-label="Back">
+
+          <md-icon md-font-set="material-icons"> menu </md-icon> 
+
+      </md-button>
+        <label>&nbsp;</label>
+
+ <md-contact-chips
+                        ng-model="selectedViewIds"
+                        md-contacts="delayedQuerySearch($query)"
+                        md-contact-name="name"
+                        md-on-remove="onChipRemoved($chip)"
+                        md-contact-image="image"
+                        md-contact-email="email"
+                        md-require-match="true"
+                        md-highlight-flags="i"
+                        filter-selected="filterSelected"
+                        placeholder="">
+                </md-contact-chips>
+</md-input-container>
+
+
+
+    <div layout="row" style="background-color: white; box-shadow:0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02); width: 392px" 
+    >
+       <section layout="column" layout-sm="column" layout-align="center center" layout-wrap>
+
+
+   <!------SWITCH CAB BIKE---->
+   <button class="accordion" ng-click="showAll()">
+   <md-icon class="material-icons">{{showAllIcon}}</md-icon>
+   {{showAllText}}
+
+   </button>
+
+   <button class="accordion" ng-click="toggleDataType()">
+   <md-icon class="material-icons">{{dataTypeIcon}}</md-icon>
+   Data Type
+
+   </button>
+           <div ng-cloak="" ng-show="showDataType">
+               <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+               <md-switch ng-model="$root.settings.dataType.taxi" aria-label="Switch 1">
+                   <img src="images/taxi.png" alt="cab View" style="width:40px;height:40px;">
+               </md-switch>
+               <md-switch ng-model="$root.settings.dataType.bicycle" aria-label="Switch 2"  >
+                   <img src="images/bike.png" alt="bike View" style="width:40px;height:40px;">
+
+               </md-switch>
+               <md-switch ng-model="$root.settings.dataType.weather" aria-label="Switch 3"  >
+                   <img src="images/weather.png" alt="weather View" style="width:40px;height:40px;">
+
+               </md-switch>
+               </section>
+           </div>
+           <!------Button for dimensions---->
+            <button class="accordion" ng-click="toggleData()"><md-icon class="material-icons">{{dimensionIcon}}</md-icon>
+            Dimensions
+           </button>
+
+           <div  ng-show="showData">
+               <md-content>
+
+                   <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" >
+
+                       <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" ng-repeat="dimension in $root.settings.dimensions">
+
+                           <md-button class="md-raised" ng-class="dimension.selected ? 'md-accent' : 'md-primary'" ng-click="selectDimension(dimension)"> 
+                           {{dimension.name}}
+                           </md-button>
+                           
+                       </section>
+                    
+                       <md-button class="md-raised md-primary" ng-click="showModal()">New Dimension</md-button>
+                   </section>
+               </md-content>
+
+           </div>
+           <!----Button ---->
+
+           <!------Button for metrics---->
+            <button class="accordion" ng-click="toggleMetrics()"><md-icon class="material-icons">{{metricIcon}}</md-icon>
+            Metrics
+           </button>
+
+           <div  ng-show="showMetrics">
+               <md-content>
+
+                   <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" >
+
+                       <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" ng-repeat="metric in $root.settings.metrics">
+
+                           <md-button class="md-raised" ng-class="metric.selected ? 'md-accent' : 'md-primary'" ng-click="selectDimension(metric)"> 
+                           {{metric.name}}
+                           </md-button>
+                           
+                       </section>
+                    
+                    
+                   </section>
+               </md-content>
+
+           </div>
+
+
+           <!------SWITCH CAB BIKE---->
+           <button class="accordion" ng-click="toggleVisual()">
+
+<md-icon class="material-icons">{{visuIcon}}</md-icon> 
+Visualization
+           </button>
+           <div ng-show="showVisual" layout="column">
+               <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="">
+                   <md-switch ng-model="$root.settings.visuTools.lineGraph" aria-label="Switch 1">
+                       Line Graph
+                   </md-switch>
+                   <md-switch ng-model="$root.settings.visuTools.graph" aria-label="Switch 2"  >
+                       Graph
+                   </md-switch>
+                   <md-switch ng-model="$root.settings.visuTools.chord" aria-label="Switch 3"  >
+                       Chord
+                   </md-switch>
+               </section>
+               <md-button class="md-raised" ng-click="draw()" flex> 
+                Start           
+                </md-button>
+           </div>
+           <!----Switch close--->
+           <!-----Date---->
+           <div  ng-cloak="">
+               <md-content layout-padding="5px">
+
+                   <div layout-gt-xs="row">
+                       <md-datepicker ng-model="$root.settings.dateRange[0]" md-placeholder="Enter date"></md-datepicker>
+
+                       <md-datepicker ng-model="$root.settings.dateRange[1]" md-placeholder="Enter date"></md-datepicker>
+                   </div>
+               </md-content>
+           </div>
+
+      </section>
+    </div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+  <md-sidenav md-component-id="left" md-is-locked-open="isSideNavOpen" class="md-whiteframe-4dp">
+    <md-list-item>
+      <md-button flex>
+                About
+      </md-button>
+    </md-list-item>
+
+
+  </md-sidenav>
+
+
+  <md-content layout="column" flex>
+  
+<la-leaflet-map selectedview="selectedViewId" showheatmap="isHeatMapActive" showall="isAllActive" statsloading="loading" flex></la-leaflet-map>
+    
+  
+  </md-content>
+</div>
